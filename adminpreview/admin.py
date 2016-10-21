@@ -22,11 +22,11 @@ class PreviewAdmin(admin.ModelAdmin):
     admin_slide_preview.short_description = 'Preview'
 
     def get_preview(self, request, object_id):
-        sub = self.queryset(request)[0]
+        sub = self.get_queryset(request)[0]
         template = "preview/%s.html" % sub.__class__.__name__
 
         class AdminPreview(DetailView):
-            queryset = self.queryset(request)
+            queryset = self.get_queryset(request)
             template_name = template.lower()
 
         return AdminPreview.as_view()(request, pk=object_id)
