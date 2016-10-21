@@ -7,9 +7,9 @@ class PreviewAdmin(admin.ModelAdmin):
     class Media:
         js = ['js/jquery.adminpreview.js']
         css = dict(
-            all = ['css/adminpreview.css']
+            all=['css/adminpreview.css']
         )
-    
+
     def admin_slide_preview(self, obj):
         """
         Add this to your ModelAdmin:
@@ -17,6 +17,7 @@ class PreviewAdmin(admin.ModelAdmin):
         list_display = ('headline','created_date', 'state', 'admin_slide_preview')
         """
         return "<div class=\"previewslide\" id=\"%s/preview/\">+</div>" % obj.id
+
     admin_slide_preview.allow_tags = True
     admin_slide_preview.short_description = 'Preview'
 
@@ -27,6 +28,7 @@ class PreviewAdmin(admin.ModelAdmin):
         class AdminPreview(DetailView):
             queryset = self.queryset(request)
             template_name = template.lower()
+
         return AdminPreview.as_view()(request, pk=object_id)
 
     def get_urls(self):
