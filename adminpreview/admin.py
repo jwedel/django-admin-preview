@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.conf.urls import url
 from django.views.generic.detail import DetailView
 
+
 class PreviewAdmin(admin.ModelAdmin):
     class Media:
         js = ['js/jquery.adminpreview.js']
@@ -22,6 +23,7 @@ class PreviewAdmin(admin.ModelAdmin):
     def get_preview(self, request, object_id):
         sub = self.queryset(request)[0]
         template = "preview/%s.html" % sub.__class__.__name__
+
         class AdminPreview(DetailView):
             queryset = self.queryset(request)
             template_name = template.lower()
