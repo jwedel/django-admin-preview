@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.views.generic.detail import DetailView
 
 class PreviewAdmin(admin.ModelAdmin):
@@ -28,7 +28,7 @@ class PreviewAdmin(admin.ModelAdmin):
         return AdminPreview.as_view()(request, pk=object_id)
 
     def get_urls(self):
-        my_urls = patterns('',
+        my_urls = [
             url(r'^(?P<object_id>\d+)/preview/$', self.admin_site.admin_view(self.get_preview)),
-        )
+        ]
         return my_urls + super(PreviewAdmin, self).get_urls()
